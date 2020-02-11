@@ -2,41 +2,32 @@ import React from 'react';
 import { StyleSheet, Text, View } from 'react-native';
 import { NavigationContainer } from '@react-navigation/native';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
+import { createStackNavigator } from '@react-navigation/stack';
+import HomeScreen from './Screens/HomeScreen';
+import ScoreScreen from './Screens/scoreScreen';
+import StatisticsScreen from './Screens/statisticsScreen';
 
-function HomeScreen() {
-  return (
-    <View style={styles.container}>
-      <Text style={styles.text}>Home Screen</Text>
-    </View>
-  );
-}
 
-function ScoreScreen() {
-  return (
-    <View style={styles.container}>
-      <Text>Regnskab</Text>
-    </View>
-  );
-}
 
-function StatisticsScreen() {
-  return (
-    <View style={styles.container}>
-      <Text>Stats!</Text>
-    </View>
-  );
-}
-const Tab = createBottomTabNavigator();
+const TabNavigator = createBottomTabNavigator();
+
+const Stack = createStackNavigator();
 
 function App() {
   return (
-    <NavigationContainer>
-      <Tab.Navigator initialRouteName="Home">
-        <Tab.Screen name="Home" component={HomeScreen} />
-        <Tab.Screen name="Regnskab" component={ScoreScreen} />
-        <Tab.Screen name="Statestik" component={StatisticsScreen} />
-      </Tab.Navigator>
-    </NavigationContainer>
+    
+      <NavigationContainer>
+        <TabNavigator.Navigator initialRouteName="Home">
+          <TabNavigator.Screen name="Home" 
+                    component={HomeScreen} />
+          <TabNavigator.Screen name="Regnskab" 
+                    component={ScoreScreen} />
+          <TabNavigator.Screen name="Statestik" 
+                    component={StatisticsScreen} />
+        </TabNavigator.Navigator>
+      </NavigationContainer>
+      
+    
   );
 }
 

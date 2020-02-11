@@ -2,18 +2,18 @@ import React from 'react';
 import { View, StyleSheet, Text } from 'react-native';
 
 
-class HomeScreen extends React.Component {
+class ScoreScreen extends React.Component {
 
     render() {
         return (
         <View style={styles.container}>
-            <Text style={styles.text}>Home!</Text>
+            <Text style={styles.text}>Scores!</Text>
         </View>
         );
     } 
 }
 
-export default HomeScreen;
+export default ScoreScreen;
 
 const styles = StyleSheet.create({
     container: {
