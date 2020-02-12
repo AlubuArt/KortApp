@@ -2,24 +2,48 @@ import React from 'react';
 import { StyleSheet, Text, View } from 'react-native';
 import { NavigationContainer } from '@react-navigation/native';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
-import { createStackNavigator } from '@react-navigation/stack';
 import HomeScreen from './Screens/HomeScreen';
 import ScoreScreen from './Screens/scoreScreen';
 import StatisticsScreen from './Screens/statisticsScreen';
+import { Ionicons } from '@expo/vector-icons';
 
 
-
+//Creating a bottomTabNavigator component
 const TabNavigator = createBottomTabNavigator();
-
-const Stack = createStackNavigator();
 
 function App() {
   return (
     
       <NavigationContainer>
-        <TabNavigator.Navigator initialRouteName="Home">
+        <TabNavigator.Navigator initialRouteName="Home"
+                                //Styling the bottomTab with icons and color
+                                screenOptions={( { route } ) => ({
+                                  tabBarIcon: ({ focused, color, size}) => {
+                                    let iconName;
+
+                                    if(route.name === "Home") {
+                                      iconName = focused
+                                      ? 'ios-add': 'md-add';
+                                    } else if (route.name === "Regnskab") {
+                                      iconName = focused 
+                                      ? 'ios-calculator' : 'md-calculator';
+                                    } else {
+                                      iconName = focused 
+                                      ? 'ios-trophy' : 'md-trophy';
+                                    }
+                                    //Returning the component styled
+                                    return <Ionicons name={iconName} size={25} color={color} />;
+                                  },
+
+                                })}
+                                tabBarOptions={{
+                                  activeTintColor: 'tomato',
+                                  inactiveTintColor: 'grey',
+                                }}>
+
+          {/*Setting the screen components in the bottomTabNavigator  */}
           <TabNavigator.Screen name="Home" 
-                    component={HomeScreen} />
+                                component={HomeScreen} />
           <TabNavigator.Screen name="Regnskab" 
                     component={ScoreScreen} />
           <TabNavigator.Screen name="Statestik" 
