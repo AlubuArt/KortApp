@@ -5,6 +5,7 @@ import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import HomeScreen from './Screens/HomeScreen';
 import ScoreScreen from './Screens/scoreScreen';
 import StatisticsScreen from './Screens/statisticsScreen';
+import LoginScreen from './Screens/LoginScreen';
 import { Ionicons } from '@expo/vector-icons';
 
 
@@ -14,8 +15,9 @@ const TabNavigator = createBottomTabNavigator();
 function App() {
   return (
     
-      <NavigationContainer>
-        <TabNavigator.Navigator initialRouteName="Home"
+      <NavigationContainer >
+        <TabNavigator.Navigator initialRouteName="Home" 
+                                
                                 //Styling the bottomTab with icons and color
                                 screenOptions={( { route } ) => ({
                                   tabBarIcon: ({ focused, color, size}) => {
@@ -39,7 +41,9 @@ function App() {
                                 tabBarOptions={{
                                   activeTintColor: 'tomato',
                                   inactiveTintColor: 'grey',
-                                }}>
+                                  backgroundcolor: 'grey',
+                                } 
+                                }>
 
           {/*Setting the screen components in the bottomTabNavigator  */}
           <TabNavigator.Screen name="Home" 
@@ -48,6 +52,8 @@ function App() {
                     component={ScoreScreen} />
           <TabNavigator.Screen name="Statestik" 
                     component={StatisticsScreen} />
+          <TabNavigator.Screen name="Login"
+                    component={LoginScreen} />
         </TabNavigator.Navigator>
       </NavigationContainer>
       
@@ -60,12 +66,16 @@ export default App;
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#fff',
+    backgroundColor: '#272D39',
     alignItems: 'center',
     justifyContent: 'center',
   },
   text: {
     fontSize: 20,
     
+  },
+  bottomTab: {
+    color: 'grey',
+
   }
 });

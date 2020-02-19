@@ -18,7 +18,7 @@ export default StatisticsScreen;
 const styles = StyleSheet.create({
     container: {
       flex: 1,
-      backgroundColor: '#fff',
+      backgroundColor: '#272D39',
       alignItems: 'center',
       justifyContent: 'center',
     },
