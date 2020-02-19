@@ -1,11 +1,10 @@
 import React from 'react';
 import { View, StyleSheet, Text, TextInput, Button } from 'react-native';
-import Modal, { ModalContent } from 'react-native-modals';
+import Modal, { ModalContent, ModalButton, ScaleAnimation  }  from 'react-native-modals';
+import ModalFooter from 'react-native-modals/dist/components/ModalFooter';
 
 
 class HomeScreen extends React.Component {
-
-    
 
     constructor(props) {
         super(props)
@@ -14,6 +13,9 @@ class HomeScreen extends React.Component {
             scorePlayer1: '',
             scorePlayer2: '',
             scorePlayer3: '',
+            Modal: {
+                visible: true,
+            }
             
 
         }
@@ -23,8 +25,8 @@ class HomeScreen extends React.Component {
         this.setScorePlayer3 = this.setScorePlayer3.bind(this)
         this.onPressButton = this.onPressButton.bind(this);
         this.onTouchOutside = this.onTouchOutside.bind(this);
-        
-        
+        this.onModalButtonPressYes = this.onModalButtonPressYes.bind(this);
+        this.onModalButtonPressNo = this.onModalButtonPressNo.bind(this);
 
 
     }
@@ -46,7 +48,7 @@ class HomeScreen extends React.Component {
         let score1 = this.state.scorePlayer1;
         let score2 = this.state.scorePlayer2;
         let score3 = this.state.scorePlayer3;
-        //Set the state of the Modal component to true
+        //Set the state of the Modal component visible to true
         this.setState({ visible: true })
     }
     //Close the modal when touch outside the modal
@@ -54,7 +56,21 @@ class HomeScreen extends React.Component {
         this.setState({ visible: false})
     }
 
+    onModalButtonPressYes() {
+        console.log("JA");
+        //Write logic here that sends the score to the database, and clear set the state of the textinput fields
+        this.clearScores;
+    }
 
+    onModalButtonPressNo() {    
+        this.setState({ visible: false });
+    }
+
+    clearScores() {
+        this.setState({scorePlayer1: ''})
+    }
+
+    
 
     render() {
         return (
@@ -77,20 +93,33 @@ class HomeScreen extends React.Component {
                         onChange={this.setScorePlayer3}
                         value={this.state.scorePlayer3} />
 
-            <Button title='Tilføj Resultat'
-                    onPress={this.onPressButton} />
+            <Button style={styles.button}
+                    title='Tilføj Resultat'
+                    onPress={this.onPressButton}
+                    color="white"
+                     />
 
             {/* pops up when the "tilføj resultat" button is pressed. Thx to JACKLAM718 for the modal component: https://github.com/jacklam718/react-native-modals/blob/master/README.md */}
-            <Modal visible={this.state.visible}
-                    onTouchOutside={this.onTouchOutside}>
+            <Modal  visible={this.state.visible}
+                    onTouchOutside={this.onTouchOutside}
+                    modalAnimation={new ScaleAnimation()}
+                    >
+                <ModalContent style={styles.modalContent}>
+                    <Text style={styles.modalText}>
+                        Er du sikker på at du vil tilføje resultaterne til regnskabet?
+                    </Text>
+                    
+                    <Text style={styles.modalText}>Player1: {this.state.scorePlayer1}</Text>
+                    <Text style={styles.modalText}>Player2: {this.state.scorePlayer2}</Text>
+                    <Text style={styles.modalText}>Player2: {this.state.scorePlayer3}</Text>
+
+                </ModalContent>
+                <ModalFooter>
+                        <ModalButton text="JA" onPress={this.onModalButtonPressYes} key="1"/>
+                        <ModalButton text="NEJ" onPress={this.onModalButtonPressNo} key="2"/>
+                </ModalFooter>
                      {/*The content of the model*/}   
-                    <ModalContent>
-                        <Text>
-                            Er du sikker på at du vil tilføje resultaterne til regnskabet?
-                        </Text>
-                        <Button title="JA"/><Button title="NEJ"/>
-                        
-                    </ModalContent>
+                    
             </Modal>
 
         
@@ -149,10 +178,19 @@ const styles = StyleSheet.create({
     headerText: {
         fontSize: 30,
         fontWeight: 'bold',
-        color: 'grey',
+        color: '#AAA8B4',
         textAlign: 'center',
         paddingBottom: 20,
         paddingTop: 35,
     },
-    
+    modalContent: {
+        padding: 0,
+        textAlign: 'center'
+
+    },
+    modalText: {
+        paddingBottom: 10,
+        textAlign: 'center',
+
+    }
   });
