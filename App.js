@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { Component } from 'react';
 import { StyleSheet, Text, View } from 'react-native';
 import { NavigationContainer } from '@react-navigation/native';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
@@ -7,13 +7,50 @@ import ScoreScreen from './Screens/scoreScreen';
 import StatisticsScreen from './Screens/statisticsScreen';
 import LoginScreen from './Screens/LoginScreen';
 import { Ionicons } from '@expo/vector-icons';
+import firebase from 'firebase';
+
 
 
 //Creating a bottomTabNavigator component
 const TabNavigator = createBottomTabNavigator();
 
-function App() {
-  return (
+class App extends Component {
+
+  //If component did mount without problems, connect to the firebase project
+  componentDidMount() {
+
+    var firebaseConfig = {
+        apiKey: "AIzaSyCpJ3OeLXo9BFLeFBw4zQ3Fj2Zio1geLTY",
+        authDomain: "reactnative-kortapp.firebaseapp.com",
+        databaseURL: "https://reactnative-kortapp.firebaseio.com",
+        projectId: "reactnative-kortapp",
+        storageBucket: "reactnative-kortapp.appspot.com",
+        messagingSenderId: "34157226291",
+        appId: "1:34157226291:web:162fc8a6a0a158daaf3646",
+        measurementId: "G-PTVKDX97H4"
+      };
+      // Initialize Firebase
+      firebase.initializeApp(firebaseConfig);
+      //setting the name and age of the current user in the DB
+      firebase.database().ref('users/001').set({
+        name: 'Jacob',
+        age: 34,
+        game: {
+          player1: '',
+          player2: '',
+          player3: ''
+        }
+      }).then(()=> {
+        console.log('inserted');
+      }).catch((error) =>{
+        console.log(error);
+      })
+      
+}; 
+
+  render() {
+
+    return (
     
       <NavigationContainer >
         <TabNavigator.Navigator initialRouteName="Home" 
@@ -23,7 +60,7 @@ function App() {
                                   tabBarIcon: ({ focused, color, size}) => {
                                     let iconName;
 
-                                    if(route.name === "Home") {
+                                      if (route.name === "Home") {
                                       iconName = focused
                                       ? 'ios-add': 'md-add';
                                     } else if (route.name === "Regnskab") {
@@ -60,7 +97,7 @@ function App() {
     
   );
 }
-
+}
 export default App;
 
 const styles = StyleSheet.create({

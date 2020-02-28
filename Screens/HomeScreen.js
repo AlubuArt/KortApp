@@ -2,9 +2,17 @@ import React from 'react';
 import { View, StyleSheet, Text, TextInput, Button } from 'react-native';
 import Modal, { ModalContent, ModalButton, ScaleAnimation  }  from 'react-native-modals';
 import ModalFooter from 'react-native-modals/dist/components/ModalFooter';
+import firebase from 'firebase';
+
+
 
 
 class HomeScreen extends React.Component {
+
+
+    componentDidMount() {
+  
+    };
 
     constructor(props) {
         super(props)
@@ -13,12 +21,11 @@ class HomeScreen extends React.Component {
             scorePlayer1: '',
             scorePlayer2: '',
             scorePlayer3: '',
-            Modal: {
-                visible: true,
-            }
+            modalVisible: false,
             
 
         }
+
         //bind the methods to the instance of this
         this.setScorePlayer1 = this.setScorePlayer1.bind(this);
         this.setScorePlayer2 = this.setScorePlayer2.bind(this);
@@ -30,6 +37,8 @@ class HomeScreen extends React.Component {
 
 
     }
+    
+    
     //set the state of each player´s score for the current game
     setScorePlayer1(event) {
         this.setState({ scorePlayer1: event.nativeEvent.text});
@@ -45,29 +54,42 @@ class HomeScreen extends React.Component {
 
     //store the state of each inputfield in a variable, then push it to an Array or to a SQL DB.
     onPressButton() {
-        let score1 = this.state.scorePlayer1;
-        let score2 = this.state.scorePlayer2;
-        let score3 = this.state.scorePlayer3;
+        
         //Set the state of the Modal component visible to true
-        this.setState({ visible: true })
+        this.setState({ modalVisible: true })
     }
     //Close the modal when touch outside the modal
     onTouchOutside() {
-        this.setState({ visible: false})
+        this.setState({ modalVisible: false})
     }
 
     onModalButtonPressYes() {
         console.log("JA");
+        let score1 = this.state.scorePlayer1;
+        let score2 = this.state.scorePlayer2;
+        let score3 = this.state.scorePlayer3;
         //Write logic here that sends the score to the database, and clear set the state of the textinput fields
-        this.clearScores;
+        firebase.database().ref('users/001/player1').update({
+            score1,
+           
+
+        }).then(() =>{
+            console.log('Updatede the score for the players');
+        }).catch((error) => {
+            console.log(error);
+        })
+        //Maybe add a confirmation pop that shows the new overall score
+        this.setState({ modalVisible: false});
+        this.setState({ scorePlayer1: '', scorePlayer2: '', scorePlayer3: '',});
+
     }
 
     onModalButtonPressNo() {    
-        this.setState({ visible: false });
+        this.setState({ modalVisible: false });
     }
 
     clearScores() {
-        this.setState({scorePlayer1: ''})
+        this.setState({scorePlayer1: ' '})
     }
 
     
@@ -100,7 +122,7 @@ class HomeScreen extends React.Component {
                      />
 
             {/* pops up when the "tilføj resultat" button is pressed. Thx to JACKLAM718 for the modal component: https://github.com/jacklam718/react-native-modals/blob/master/README.md */}
-            <Modal  visible={this.state.visible}
+            <Modal  visible={this.state.modalVisible}
                     onTouchOutside={this.onTouchOutside}
                     modalAnimation={new ScaleAnimation()}
                     >
