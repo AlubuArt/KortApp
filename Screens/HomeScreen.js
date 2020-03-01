@@ -9,21 +9,15 @@ import firebase from 'firebase';
 
 class HomeScreen extends React.Component {
 
-
-    componentDidMount() {
-  
-    };
-
     constructor(props) {
         super(props)
 
         this.state = {
+            
             scorePlayer1: '',
             scorePlayer2: '',
             scorePlayer3: '',
             modalVisible: false,
-            
-
         }
 
         //bind the methods to the instance of this
@@ -34,9 +28,12 @@ class HomeScreen extends React.Component {
         this.onTouchOutside = this.onTouchOutside.bind(this);
         this.onModalButtonPressYes = this.onModalButtonPressYes.bind(this);
         this.onModalButtonPressNo = this.onModalButtonPressNo.bind(this);
-
-
     }
+
+
+    componentDidMount() {
+        
+    };
     
     
     //set the state of each player´s score for the current game
@@ -64,23 +61,28 @@ class HomeScreen extends React.Component {
     }
 
     onModalButtonPressYes() {
-        console.log("JA");
+        
+
         let score1 = this.state.scorePlayer1;
         let score2 = this.state.scorePlayer2;
         let score3 = this.state.scorePlayer3;
         //Write logic here that sends the score to the database, and clear set the state of the textinput fields
-        firebase.database().ref('users/001/player1').update({
-            score1,
-           
-
-        }).then(() =>{
+        firebase.database().ref('users/user/game/player1').push(score1);
+        firebase.database().ref('users/user/game/player2').push(score2);
+        firebase.database().ref('users/user/game/player3').push(score3)
+        
+        
+        .then(() =>{
             console.log('Updatede the score for the players');
         }).catch((error) => {
             console.log(error);
-        })
+
+        }).then(() => {
         //Maybe add a confirmation pop that shows the new overall score
-        this.setState({ modalVisible: false});
-        this.setState({ scorePlayer1: '', scorePlayer2: '', scorePlayer3: '',});
+        this.setState({ modalVisible: false})
+        this.setState({scorePlayer1: ' ', scorePlayer2: ' ', scorePlayer3:' '})
+        });
+        //Send a notification to the players that the score have been updated
 
     }
 
@@ -88,11 +90,7 @@ class HomeScreen extends React.Component {
         this.setState({ modalVisible: false });
     }
 
-    clearScores() {
-        this.setState({scorePlayer1: ' '})
-    }
-
-    
+  
 
     render() {
         return (

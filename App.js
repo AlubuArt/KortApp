@@ -8,6 +8,8 @@ import StatisticsScreen from './Screens/statisticsScreen';
 import LoginScreen from './Screens/LoginScreen';
 import { Ionicons } from '@expo/vector-icons';
 import firebase from 'firebase';
+import firebaseConfig from './ressources/firebase_config';
+
 
 
 
@@ -16,37 +18,42 @@ const TabNavigator = createBottomTabNavigator();
 
 class App extends Component {
 
-  //If component did mount without problems, connect to the firebase project
-  componentDidMount() {
+    constructor(props) {
+      super(props);
 
-    var firebaseConfig = {
-        apiKey: "AIzaSyCpJ3OeLXo9BFLeFBw4zQ3Fj2Zio1geLTY",
-        authDomain: "reactnative-kortapp.firebaseapp.com",
-        databaseURL: "https://reactnative-kortapp.firebaseio.com",
-        projectId: "reactnative-kortapp",
-        storageBucket: "reactnative-kortapp.appspot.com",
-        messagingSenderId: "34157226291",
-        appId: "1:34157226291:web:162fc8a6a0a158daaf3646",
-        measurementId: "G-PTVKDX97H4"
-      };
       // Initialize Firebase
       firebase.initializeApp(firebaseConfig);
-      //setting the name and age of the current user in the DB
-      firebase.database().ref('users/001').set({
-        name: 'Jacob',
-        age: 34,
-        game: {
-          player1: '',
-          player2: '',
-          player3: ''
-        }
-      }).then(()=> {
-        console.log('inserted');
-      }).catch((error) =>{
-        console.log(error);
-      })
-      
-}; 
+
+
+      this.writeUserData = this.writeUserData.bind(this);
+      this.getUserData = this.getUserData.bind(this);
+
+    }
+
+  
+  //If component did mount without problems, connect to the firebase project
+  componentDidMount() {
+    this.writeUserData();
+    this.getUserData();
+    
+  };
+  
+  
+//setting the name and age of the current user in the DB i.e Hardcoded userlogin
+writeUserData() {
+  firebase.database().ref('/users').set(this.state)
+  .then(()=> {
+    console.log('inserted');
+  }).catch((error) =>{
+    console.log(error);
+  })
+};
+
+getUserData() {
+  this.setState({player1: firebase.database().ref('/users/user/game/player1')});
+  
+}
+
 
   render() {
 
@@ -84,7 +91,9 @@ class App extends Component {
 
           {/*Setting the screen components in the bottomTabNavigator  */}
           <TabNavigator.Screen name="Home" 
-                                component={HomeScreen} />
+                                component={HomeScreen}
+                                userName={this.userName}
+                                 />
           <TabNavigator.Screen name="Regnskab" 
                     component={ScoreScreen} />
           <TabNavigator.Screen name="Statestik" 
