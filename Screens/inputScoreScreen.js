@@ -7,7 +7,7 @@ import firebase from 'firebase';
 
 
 
-class InputScoreScreen  extends React.Component {
+class InputScoreScreen extends React.Component {
 
     constructor(props) {
         super(props)

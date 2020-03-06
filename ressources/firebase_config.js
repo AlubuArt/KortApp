@@ -1,12 +1,13 @@
-const firebaseConfig = {
-    apiKey: "AIzaSyCpJ3OeLXo9BFLeFBw4zQ3Fj2Zio1geLTY",
-    authDomain: "reactnative-kortapp.firebaseapp.com",
-    databaseURL: "https://reactnative-kortapp.firebaseio.com",
-    projectId: "reactnative-kortapp",
-    storageBucket: "reactnative-kortapp.appspot.com",
-    messagingSenderId: "34157226291",
-    appId: "1:34157226291:web:162fc8a6a0a158daaf3646",
-    measurementId: "G-PTVKDX97H4"
-  };
 
+
+  const firebaseConfig = {
+    apiKey: "AIzaSyD-Wo139EoTDl80rjjRFKyd5ZCK-M9ribE",
+    authDomain: "kortapptest.firebaseapp.com",
+    databaseURL: "https://kortapptest.firebaseio.com",
+    projectId: "kortapptest",
+    storageBucket: "kortapptest.appspot.com",
+    messagingSenderId: "100757442810",
+    appId: "1:100757442810:web:e34d541d898477b711b943",
+    measurementId: "G-0W1YP0PLVL"
+  };
   export default firebaseConfig;
