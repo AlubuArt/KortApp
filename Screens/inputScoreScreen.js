@@ -7,7 +7,7 @@ import firebase from 'firebase';
 
 
 
-class HomeScreen extends React.Component {
+class InputScoreScreen  extends React.Component {
 
     constructor(props) {
         super(props)
@@ -148,7 +148,7 @@ class HomeScreen extends React.Component {
     } 
 }
 
-export default HomeScreen;
+export default InputScoreScreen;
 
 const styles = StyleSheet.create({
     container: {

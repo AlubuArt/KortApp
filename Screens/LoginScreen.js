@@ -4,18 +4,41 @@ import { TextInput } from 'react-native-gesture-handler';
 
 class LoginScreen extends React.Component {
 
+  state = { email: '', password: '', errorMessage: null }
+
+  handleLogin() {
+    //TODO login handling
+    console.log('handleLogin');
+  }
     render() {
         return(
-            <View style={styles.container}>
-                <Text style={styles.text}>
-                    Please login to continue!
-                </Text>
-
-                <TextInput style={styles.textInput} placeholder="Username" />
-                <TextInput style={styles.textInput} placeholder="Password" />
-                <Button title="Login" color="white"/>
-
-            </View>
+          <View style={styles.container}>
+          <Text>Login</Text>
+          {this.state.errorMessage &&
+            <Text style={{ color: 'red' }}>
+              {this.state.errorMessage}
+            </Text>}
+          <TextInput
+            style={styles.textInput}
+            autoCapitalize="none"
+            placeholder="Email"
+            onChangeText={email => this.setState({ email })}
+            value={this.state.email}
+          />
+          <TextInput
+            secureTextEntry
+            style={styles.textInput}
+            autoCapitalize="none"
+            placeholder="Password"
+            onChangeText={password => this.setState({ password })}
+            value={this.state.password}
+          />
+          <Button title="Login" onPress={this.handleLogin} />
+          <Button
+            title="Don't have an account? Sign Up"
+            onPress={() => this.props.navigation.navigate('SignUp')}
+          />
+        </View>
         )
     };
 
@@ -23,45 +46,17 @@ class LoginScreen extends React.Component {
 export default LoginScreen;
 
 const styles = StyleSheet.create({
-    container: {
-      flex: 1,
-      backgroundColor: '#272D39',
-      paddingTop: 50,
-
-    },
-    textInput: {
-      height: 40,
-      borderColor: 'grey',
-      borderWidth: 1,
-      marginBottom: 30,
-      marginLeft: 20,
-      marginRight: 20,
-      marginTop: 5,
-      
-      borderRadius: 10,
-      width: 280,
-      alignSelf: 'center',
-      textAlign: 'center',
-      shadowColor: 'black',
-      shadowOffset: {
-        height: 3,
-        wdth: 3,
-      },
-      shadowRadius: 3,
-      shadowOpacity: 0.5,
-
-
-    },
-    nameTitle: {
-      fontSize: 20,
-      fontWeight: 'bold',
-      textAlign: 'center'
-    },
-    text: {
-        fontSize: 20,
-        textAlign: 'center',
-        paddingTop: 30,
-        paddingBottom: 10,
-    }
-  });
+  container: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center'
+  },
+  textInput: {
+    height: 40,
+    width: '90%',
+    borderColor: 'gray',
+    borderWidth: 1,
+    marginTop: 8
+  }
+})
 

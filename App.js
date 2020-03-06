@@ -1,28 +1,26 @@
 import React, { Component } from 'react';
 import { StyleSheet, Text, View } from 'react-native';
-import { NavigationContainer } from '@react-navigation/native';
-import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
-import HomeScreen from './Screens/HomeScreen';
+import { NavigationContainer, TabNavigator } from '@react-navigation/native';
+import { createBottomTabNavigator} from '@react-navigation/bottom-tabs';
+import HomeScreen from './Screens/inputScoreScreen';
 import ScoreScreen from './Screens/scoreScreen';
 import StatisticsScreen from './Screens/statisticsScreen';
 import LoginScreen from './Screens/LoginScreen';
 import { Ionicons } from '@expo/vector-icons';
-import firebase from 'firebase';
+import * as firebase from 'firebase';
 import firebaseConfig from './ressources/firebase_config';
 
 
-
-
-//Creating a bottomTabNavigator component
-const TabNavigator = createBottomTabNavigator();
-
-class App extends Component {
+  class App extends Component {
 
     constructor(props) {
       super(props);
 
       // Initialize Firebase
-      firebase.initializeApp(firebaseConfig);
+      if (!firebase.apps.length) {
+        firebase.initializeApp({firebaseConfig});
+      }
+      //firebase.initializeApp(firebaseConfig);
 
 
       this.writeUserData = this.writeUserData.bind(this);
