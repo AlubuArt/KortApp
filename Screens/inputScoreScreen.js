@@ -1,10 +1,10 @@
 import React from 'react';
 import { View, StyleSheet, Text, TextInput, Button } from 'react-native';
 import Modal, { ModalContent, ModalButton, ScaleAnimation  }  from 'react-native-modals';
+import { LinearGradient } from 'expo-linear-gradient';
+import { Divider } from 'react-native-elements';
 import ModalFooter from 'react-native-modals/dist/components/ModalFooter';
 import firebase from 'firebase';
-
-
 
 
 class InputScoreScreen extends React.Component {
@@ -94,9 +94,13 @@ class InputScoreScreen extends React.Component {
 
     render() {
         return (
-        <View style={styles.container}>
+           
+           <LinearGradient  colors={['black', 'grey']} style={styles.linearGradient}>
 
-            <Text style={styles.headerText} >INDTAST NYT RESULTAT</Text>
+            <Text style={styles.headerText} >INDTAST</Text>
+            <Text style={styles.headerText} >NYT</Text>
+            <Text style={styles.headerText} >RESULTAT</Text>
+            <Divider style={styles.divider}></Divider>
 
             <Text style={styles.nameTitle}>Player 1</Text>
             <TextInput  style={styles.textInput} 
@@ -143,7 +147,8 @@ class InputScoreScreen extends React.Component {
             </Modal>
 
         
-        </View>
+            </LinearGradient>
+       
         );
     } 
 }
@@ -151,16 +156,14 @@ class InputScoreScreen extends React.Component {
 export default InputScoreScreen;
 
 const styles = StyleSheet.create({
-    container: {
+    linearGradient: {
       flex: 3,
-      backgroundColor: '#272D39',
-      paddingTop: 50,
+        paddingTop: 20,
 
     },
     textInput: {
       height: 45,
       backgroundColor: '#52575D',
-      //borderColor: 'grey',
       borderWidth: 1,
       marginBottom: 30,
       marginLeft: 20,
@@ -188,20 +191,25 @@ const styles = StyleSheet.create({
       textAlign: 'center',
       color: 'grey',
       textAlign: 'center',
-
-
     },
+
+    divider: {
+        paddingTop: 20,
+        backgroundColor: 'transparent'
+    }, 
     text: {
         fontSize: 20,
         textAlign: 'center',
     },
     headerText: {
-        fontSize: 30,
-        fontWeight: 'bold',
-        color: '#AAA8B4',
+        fontSize: 50,
+        fontWeight: '100',
+        color: 'white',
         textAlign: 'center',
-        paddingBottom: 20,
-        paddingTop: 35,
+        
+        
+        paddingBottom: 0,
+        paddingTop: 0,
     },
     modalContent: {
         padding: 0,
@@ -214,3 +222,5 @@ const styles = StyleSheet.create({
 
     }
   });
+
+  
