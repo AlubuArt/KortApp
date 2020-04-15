@@ -23,9 +23,6 @@ class MainScreen extends Component {
     }
 
     render() {
-
-      
-
         return(
 
             <NavigationContainer >

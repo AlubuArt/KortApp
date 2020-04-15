@@ -5,6 +5,7 @@ import { LinearGradient } from 'expo-linear-gradient';
 import { Divider } from 'react-native-elements';
 import ModalFooter from 'react-native-modals/dist/components/ModalFooter';
 import firebase from 'firebase';
+import { SafeAreaView } from 'react-native-safe-area-context';
 
 
 class InputScoreScreen extends React.Component {
@@ -94,6 +95,8 @@ class InputScoreScreen extends React.Component {
 
     render() {
         return (
+
+            <SafeAreaView flex='2'>
            
            <LinearGradient  colors={['black', 'grey']} style={styles.linearGradient}>
 
@@ -101,6 +104,10 @@ class InputScoreScreen extends React.Component {
             <Text style={styles.headerText} >NYT</Text>
             <Text style={styles.headerText} >RESULTAT</Text>
             <Divider style={styles.divider}></Divider>
+
+            </LinearGradient>
+
+            <View style={styles.inputFields}>
 
             <Text style={styles.nameTitle}>Player 1</Text>
             <TextInput  style={styles.textInput} 
@@ -117,11 +124,19 @@ class InputScoreScreen extends React.Component {
                         onChange={this.setScorePlayer3}
                         value={this.state.scorePlayer3} />
 
+        
+            </View>
+
+            
+            <View flex='1'>
+
             <Button style={styles.button}
                     title='Tilføj Resultat'
                     onPress={this.onPressButton}
                     color="white"
                      />
+            </View>         
+            
 
             {/* pops up when the "tilføj resultat" button is pressed. Thx to JACKLAM718 for the modal component: https://github.com/jacklam718/react-native-modals/blob/master/README.md */}
             <Modal  visible={this.state.modalVisible}
@@ -146,8 +161,11 @@ class InputScoreScreen extends React.Component {
                     
             </Modal>
 
+
+            </SafeAreaView>
+
         
-            </LinearGradient>
+            
        
         );
     } 
@@ -159,8 +177,16 @@ const styles = StyleSheet.create({
     linearGradient: {
       flex: 3,
         paddingTop: 20,
-
     },
+    inputFields: {
+        paddingTop: 10,
+        
+    },
+
+    SafeAreaView: {
+        alignItems: "stretch",
+    },
+
     textInput: {
       height: 45,
       backgroundColor: '#52575D',
